@@ -5,13 +5,18 @@ module.exports = function (sequelize, DataTypes) {
       primaryKey: true,
       autoIncrement: true
     },
+    containerId: {
+      type: DataTypes.INTEGER,
+      allowNull: false
+    },
     title: {
       type: DataTypes.STRING
     }
   });
   card.associate = function (models) {
     card.belongsTo(models.container, {
-      foreignKey: 'container_id'
+      foreignKey: 'containerId',
+      targetKey: 'id'
     });
   };
   return card;
