@@ -5,6 +5,10 @@ module.exports = function (sequelize, DataTypes) {
       primaryKey: true,
       autoIncrement: true
     },
+    boardId: {
+      type: DataTypes.INTEGER,
+      allowNull: false
+    },
     title: {
       type: DataTypes.STRING,
       allowNull: false
@@ -12,9 +16,13 @@ module.exports = function (sequelize, DataTypes) {
   });
   container.associate = function (models) {
     container.belongsTo(models.board, {
-      foreignKey: 'board_id'
+      foreignKey: 'boardId',
+      targetKey: 'id'
     });
-    container.hasMany(models.card, { foreignKey: 'container_id' });
+    container.hasMany(models.card, {
+      foreignKey: 'containerId',
+      sourceKey: 'id'
+    });
   };
   return container;
 };

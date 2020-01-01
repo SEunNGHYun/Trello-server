@@ -16,7 +16,10 @@ module.exports = function (sequelize, DataTypes) {
     }
   });
   user.associate = function (models) {
-    user.hasMany(models.board, { foreignKey: 'user_id' });
+    user.hasMany(models.board, {
+      foreignKey: 'userId',
+      sourceKey: 'id'
+    });
   };
   return user;
 };
