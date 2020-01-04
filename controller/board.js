@@ -4,9 +4,9 @@ const { verify } = require('../createModules/jwt');
 board.sync();
 module.exports = {
   get: (req, res) => {
-    const Id = verify(req.cookies.user).id;
+    const userId = verify(req.cookies.user).id;
     return board.findAll({
-      where: { userId: Id }
+      where: { userId }
     })
       .then(data => {
         console.log(data[0].dataValues.User);
@@ -30,10 +30,10 @@ module.exports = {
   },
   create: (req, res) => {
     const { title } = req.body;
-    const id = verify(req.cookies.user).id;
+    const userId = verify(req.cookies.user).id;
     board.create({
       title,
-      userId: id
+      userId
     })
       .then(data => {
         if(data.dataValues) {
@@ -84,5 +84,28 @@ module.exports = {
           edit: false
         });
       });
-  }
+  },
+  list: (req, res) => {
+    const userId = verify(req.cookies.user).id;
+    board.findAll({
+      where: { userId },
+      attributes: ['id', 'title']
+    }).then(data => {
+      const result = [];
+      if(data.length > 0) {
+        for(let i = 0; i < data.length; i++) {
+          result.push(data[i].dataValues);
+        }
+        res.status(201);
+        return res.json({ list: result });
+      }
+      res.status(200);
+      return res.json({ list: result });
+    })
+      .catch(err => {
+        console.log(err);
+        res.status(400);
+        return res.json({ list: false });
+      });
+  } 
 };

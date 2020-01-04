@@ -33,7 +33,7 @@ app.use('/board', boardRoutes);
 app.use('/container', containerRoutes);
 app.use('/card', cardRoutes);
 
-app.listen('4000', (rea, res) => {
+app.listen('8080', () => {
   console.log('????연결 되었습니다');
 });
 
