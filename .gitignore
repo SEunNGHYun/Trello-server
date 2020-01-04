@@ -1,5 +1,7 @@
-/node_modules
-/config
-/models/index.js
-.env
+node_modules
+package-lock.json
 .eslintrc.js
+yarn.lock
+.env
+.DS_Store
+config

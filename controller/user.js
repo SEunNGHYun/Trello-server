@@ -23,8 +23,13 @@ module.exports = {
       });
   },
   check: (req, res) => {
-    res.status(200);
-    return res.json({ check: true });
+    if(req.cookie) {
+      res.status(200);
+      return res.json({ check: true });
+    }else{
+      res.status(203);
+      return res.json({ check: false });
+    }
   },  
   userInfo: (req, res) => {
     const id = verify(req.cookies.user).id;
