@@ -6,6 +6,6 @@ router.get('/', controller.get);
 router.get('/list', controller.list);
 router.post('/create', controller.create);
 router.delete('/delete/:id', controller.delete);
-router.put('/edit/:id', controller.edit);
+router.patch('/edit/:id', controller.edit);
 
 module.exports = router;
