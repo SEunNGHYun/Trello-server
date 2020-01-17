@@ -11,6 +11,12 @@ module.exports = function (sequelize, DataTypes) {
     },
     title: {
       type: DataTypes.STRING
+    },
+    contents: {
+      type: DataTypes.STRING
+    },
+    ranking: {
+      type: DataTypes.STRING
     }
   });
   card.associate = function (models) {

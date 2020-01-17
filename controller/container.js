@@ -36,8 +36,8 @@ module.exports = {
       .then(data => {
         console.log('>>', data.dataValues);
         if(data.dataValues) {
-          res.status(201);
-          return res.json({ result: data.dataValues });
+          res.status(204);
+          return res.json({ create: true });
         }
       })
       .catch(err => {
@@ -66,13 +66,12 @@ module.exports = {
   edit: async (req, res) => {
     const id = req.query.container_id;
     const { title } = req.body;
-    container.update({
-      title
-    }, {
+    container.update(title, {
       where: { id }
     })
       .then(data => {
         res.status(204);
+        console.log('data', data);
         return res.json({ edit: true });
       })
       .catch(err => {
