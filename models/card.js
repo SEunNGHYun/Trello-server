@@ -22,7 +22,8 @@ module.exports = function (sequelize, DataTypes) {
   card.associate = function (models) {
     card.belongsTo(models.container, {
       foreignKey: 'containerId',
-      targetKey: 'id'
+      targetKey: 'id',
+      onDelete: 'cascade'
     });
   };
   return card;
