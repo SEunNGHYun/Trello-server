@@ -63,10 +63,14 @@ module.exports = {
       defaults: { email, password, name }
     })
       .spread((memo, created) => {
+        console.log('memo', memo);
         if (created) {
           res.status(201);
           return res.json({ signup: true });
-        } 
+        } else{
+          res.status(205);
+          return res.json({ signup: false });
+        }
       })
       .catch(err => {
         if(err) {
@@ -127,5 +131,31 @@ module.exports = {
           return res.json({ edit: false });
         }
       });
+  },
+  delete: (req, res) => {
+    const id = verify(req.cookies.user).id;
+    console.log('id', id);
+    User.destroy({
+      where: {
+        id
+      }
+    }).then(data => {
+      console.log('Res destory user', data);
+      if(res) {
+        res.status(200);
+        return res.json({ delete: true });
+      }else{
+        res.status(400);
+        return res.json({
+          delete: false
+        });
+      }
+    }).catch(err => {
+      console.log(err);
+      res.status(400);
+      return res.json({
+        delete: false
+      });
+    });
   }
 };

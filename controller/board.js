@@ -2,6 +2,8 @@ const { board } = require('../models/index');
 const { verify } = require('../createModules/jwt');
 
 board.sync();
+
+
 module.exports = {
   get: (req, res) => {
     const userId = verify(req.cookies.user).id;
@@ -67,7 +69,6 @@ module.exports = {
   edit: async (req, res) => {
     const boardId = req.params.id;
     const { title } = req.body;
-    console.log('??', title, boardId);
     board.update(title, {
       where: { id: boardId }
     })
