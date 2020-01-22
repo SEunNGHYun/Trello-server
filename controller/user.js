@@ -40,7 +40,6 @@ module.exports = {
         res.status(200);
         const { email, name } = result.dataValues; 
         console.log('sdd', email, name);
-        console.log('pass');
         res.status(200);
         return res.json({
           userInfo: {
@@ -110,10 +109,11 @@ module.exports = {
     }
   }, 
   edit: (req, res) => {
-    const { password, email, name } = req.body;
+    let { password, name } = req.body;
     const id = verify(req.cookies.user).id;
+    password = crypto.createHash('sha512').update(password).digest('base64'); 
     User.update(
-      { password, email, name },
+      { password, name },
       { where: { id } }
     )
       .then(result => {

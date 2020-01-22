@@ -11,12 +11,19 @@ module.exports = function (sequelize, DataTypes) {
     },
     title: {
       type: DataTypes.STRING
+    },
+    contents: {
+      type: DataTypes.STRING
+    },
+    ranking: {
+      type: DataTypes.STRING
     }
   });
   card.associate = function (models) {
     card.belongsTo(models.container, {
       foreignKey: 'containerId',
-      targetKey: 'id'
+      targetKey: 'id',
+      onDelete: 'cascade'
     });
   };
   return card;

@@ -67,9 +67,8 @@ module.exports = {
   edit: async (req, res) => {
     const boardId = req.params.id;
     const { title } = req.body;
-    board.update({
-      title
-    }, {
+    console.log('??', title, boardId);
+    board.update(title, {
       where: { id: boardId }
     })
       .then(data => {

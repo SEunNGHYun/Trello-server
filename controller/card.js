@@ -28,9 +28,12 @@ module.exports = {
   },
   create: (req, res) => {
     const containerId = req.query.container_id;
-    const { title } = req.body;
+    let { title, contents, ranking } = req.body;
+    ranking = Number(ranking);
     card.create({
       title,
+      contents,
+      ranking,
       containerId
     })
       .then(data => {
@@ -65,15 +68,18 @@ module.exports = {
   },
   edit: (req, res) => {
     const id = req.query.card_id;
-    const { title } = req.body;
+    let { title, contents, ranking } = req.body;
+    ranking = Number(ranking);
     card.update({
-      title
+      title,
+      contents,
+      ranking
     }, {
       where: { id }
     })
       .then(data => {
-        res.status(201);
-        return res.json({ edit: data.dataValues });
+        res.status(204);
+        return res.json({ edit: true });
       })
       .catch(err => {
         console.log('update', err);
